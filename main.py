@@ -9,37 +9,19 @@ class SaveSongs:
         self.spotify_token = spotify_token
         self.playlist_id = playlist_id
         self.searchresults = []
+        self.tracks = ""
 
-    def get_tracks(self, list_id):
-        query = "https://api.spotify.com/v1/playlists/{}/tracks".format(
-            list_id)
+    def add_tracks(self, list_id):
+        for x in self.searchresults:
+            query = "https://api.spotify.com/v1/playlists/{}/tracks".format(
+                x)
 
-        response = requests.get(query,
-                                headers={"Content-Type": "application/json",
-                                         "Authorization": "Bearer {}".format(self.spotify_token)})
-        response_json = response.json()
-        print(response)
+            response = requests.get(query,
+                                    headers={"Content-Type": "application/json",
+                                             "Authorization": "Bearer {}".format(self.spotify_token)})
+            response_json = response.json()
+            #print(response_json['playlists'][])
 
-        for i in response_json["items"]:
-            self.tracks += (i["track"]["uri"] + ",")
-        self.tracks = self.tracks[:-1]
-        query = "https://api.spotify.com/v1/playlists/{}/tracks".format(
-            discover_weekly_id)
-
-        response = requests.get(query,
-                                headers={"Content-Type": "application/json",
-                                         "Authorization": "Bearer {}".format(self.spotify_token)})
-
-        response_json = response.json()
-
-        print(response)
-
-        for i in response_json["items"]:
-            self.tracks += (i["track"]["uri"] + ",")
-        self.tracks = self.tracks[:-1]
-
-        self.add_search_songs()
-        return self.tracks
 
 
 
@@ -51,9 +33,12 @@ class SaveSongs:
         response_json = response.json()
         print(response_json)
         for item in response_json['playlists']['items']:
-            #print(item['id'])
-            self.searchresults.append(item['id'])
+            #print(item)
+            #print(item['href'])
+            self.searchresults.append(item['external_urls']['spotify'])
+            #self.searchresults.append(item['id'])
         print(self.searchresults)
+        return self.searchresults
 
 
     def create_playlist(self, emotion):
@@ -74,6 +59,7 @@ class SaveSongs:
 
         self.playlist_id=response_json['id']
         print(self.playlist_id)
+        return self.playlist_id
 
     def add_search_songs(self):
         query = "https://api.spotify.com/v1/playlists/{}/tracks?uris={}".format(
@@ -85,4 +71,5 @@ class SaveSongs:
 
 a = SaveSongs()
 a.search_mood("sad")
-a.create_playlist("sad")
+#a.create_playlist("sad")
+#a.add_tracks(a.create_playlist("sad"))
