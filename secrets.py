@@ -1,0 +1,3 @@
+spotify_token = "BQC48tlNjwlqcjBqnWLEQEBTS1a2S9ll-h8wG18DQeLDGSqIIPr_5FNba_EgDQcUWD3DV3PJ-ErpoXAt6HeAJ0GvLLhq0aojTBjPH3Evcp6s6J7h19qYXyxZ0wVPALXWeNAaPn7NkiX9KwoQ7pKPdPZ6l-4VBmUJJsaSEOi8T0DGO5nTO-Z54x7Qw6eFWQCWmW8aXJe2Fw"
+spotify_user_id = "sarika.88"
+playlist_id = ""
